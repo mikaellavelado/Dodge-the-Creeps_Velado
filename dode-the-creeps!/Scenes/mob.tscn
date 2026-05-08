@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://ckfltnkn8mjv"]
+
+[ext_resource type="Script" uid="uid://duggt8bmu04lf" path="res://Scripts/mob.gd" id="1_4a3ma"]
+[ext_resource type="Texture2D" uid="uid://v0b7a12un8bn" path="res://art/enemyFlyingAlt_1.png" id="1_v6knj"]
+[ext_resource type="Texture2D" uid="uid://drka7apkqokkn" path="res://art/enemyFlyingAlt_2.png" id="2_4a3ma"]
+[ext_resource type="Texture2D" uid="uid://bbx4teyxyh2fw" path="res://art/enemySwimming_1.png" id="3_wr5r7"]
+[ext_resource type="Texture2D" uid="uid://yghqlrpuar2n" path="res://art/enemySwimming_2.png" id="4_bnijg"]
+[ext_resource type="Texture2D" uid="uid://d23m4f5424jqg" path="res://art/enemyWalking_1.png" id="5_siddw"]
+[ext_resource type="Texture2D" uid="uid://dcekaf1seax5g" path="res://art/enemyWalking_2.png" id="6_v1yr1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_it7ic"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v6knj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4a3ma")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wr5r7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bnijg")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_siddw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_v1yr1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v6knj"]
+radius = 33.0
+height = 84.0
+
+[node name="Mob" type="RigidBody2D" unique_id=775981075 groups=["mobs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_4a3ma")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=308203339]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_it7ic")
+animation = &"fly"
+frame_progress = 0.094583616
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2132384682]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_v6knj")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=299457885]
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
